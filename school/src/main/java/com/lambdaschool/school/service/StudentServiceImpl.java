@@ -28,10 +28,10 @@ public class StudentServiceImpl implements StudentService
     }
 
     @Override
-    public Student findStudentById(long id) throws ResourceNotFoundException
+    public Student findStudentById(long id) throws EntityNotFoundException
     {
         return studrepos.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(Long.toString(id)));
+                .orElseThrow(() -> new EntityNotFoundException(Long.toString(id)));
     }
 
     @Override
@@ -43,14 +43,14 @@ public class StudentServiceImpl implements StudentService
     }
 
     @Override
-    public void delete(long id) throws ResourceNotFoundException
+    public void delete(long id) throws EntityNotFoundException
     {
         if (studrepos.findById(id).isPresent())
         {
             studrepos.deleteById(id);
         } else
         {
-            throw new ResourceNotFoundException(Long.toString(id));
+            throw new EntityNotFoundException(Long.toString(id));
         }
     }
 

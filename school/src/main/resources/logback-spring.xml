@@ -23,7 +23,7 @@
         </rollingPolicy>
     </appender>
 
-    <root level="OFF" additivity="false">
+    <root level="INFO" additivity="false">
         <appender-ref ref="STDOUT" />
     </root>
 
@@ -41,7 +41,7 @@
         <appender-ref ref="STDOUT"/>
     </logger>
 
-    <logger name = "org.springframework" level = "OFF" additivity="false">
+    <logger name = "org.springframework" level = "INFO" additivity="false">
         <appender-ref ref="STDOUT" />
     </logger>
 
