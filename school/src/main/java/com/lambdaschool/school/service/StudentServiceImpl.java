@@ -1,5 +1,7 @@
 package com.lambdaschool.school.service;
 
+import com.lambdaschool.school.exceptions.ResourceFoundException;
+import com.lambdaschool.school.exceptions.ResourceNotFoundException;
 import com.lambdaschool.school.model.Course;
 import com.lambdaschool.school.model.Student;
 import com.lambdaschool.school.repository.StudentRepository;
@@ -56,6 +58,11 @@ public class StudentServiceImpl implements StudentService
     @Override
     public Student save(Student student)
     {
+        if (studrepos.findByStudnameContainingIgnoreCase(student.getStudname()) != null)
+        {
+            throw new ResourceFoundException(student.getStudname() + " is already taken");
+        }
+
         Student newStudent = new Student();
 
         newStudent.setStudname(student.getStudname());
@@ -67,7 +74,7 @@ public class StudentServiceImpl implements StudentService
     public Student update(Student student, long id)
     {
         Student currentStudent = studrepos.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(Long.toString(id)));
+                .orElseThrow(() -> new ResourceNotFoundException(Long.toString(id)));
 
         if (student.getStudname() != null)
         {
